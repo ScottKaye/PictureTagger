@@ -17,8 +17,7 @@ namespace PictureTagger_System
 			{
 				if (_conn == null)
 				{
-					Debug.WriteLine("Opening connection");
-					_conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Scott\Source\Repos\PictureTagger\PictureTagger_System\PictureTagger_DB.mdf;Integrated Security=True");
+					_conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Environment.CurrentDirectory + @"\PictureTagger_DB.mdf;Integrated Security=True");
 					_conn.Open();
 				}
 				return _conn;
@@ -28,7 +27,6 @@ namespace PictureTagger_System
 
 		~PTData()
 		{
-			Debug.WriteLine("Closing connection");
 			conn.Close();
 			conn.Dispose();
 		}

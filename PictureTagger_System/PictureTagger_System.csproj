@@ -68,6 +68,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>PictureTagger_DB.mdf</DependentUpon>
     </Content>
+    <Content Include="schema.sql" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
