@@ -33,17 +33,20 @@ namespace PictureTagger_UI_WinForms
 			AppButtons.AddRange(new AppButton[] {
 				new SidebarButton()
 				{
-					Image = Properties.Resources.PhotoCollection,
+					Image = Properties.Resources.ButtonSprites,
+					ImageRegion = new Rectangle(0, 0, 60, 60),
 					Page = AppPage.Collections,
 				},
 				new SidebarButton()
 				{
-					Image = Properties.Resources.PhotoAdd,
+					Image = Properties.Resources.ButtonSprites,
+					ImageRegion = new Rectangle(60, 0, 60, 60),
 					Page = AppPage.Import,
 				},
 				new SidebarButton()
 				{
-					Image = Properties.Resources.Settings,
+					Image = Properties.Resources.ButtonSprites,
+					ImageRegion = new Rectangle(120, 0, 60, 60),
 					Page = AppPage.Preferences,
 				},
 				new SubtitleButton()

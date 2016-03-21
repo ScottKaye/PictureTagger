@@ -116,9 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\bg_mountains.png" />
-    <Content Include="Resources\photo_add.png" />
-    <Content Include="Resources\photo_collection.png" />
-    <Content Include="Resources\settings.png" />
+    <None Include="Resources\sprites.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PictureTagger_System\PictureTagger_System.csproj">

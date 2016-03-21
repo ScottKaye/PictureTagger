@@ -73,7 +73,7 @@ namespace PictureTagger_UI_WinForms
 					Button b = new Button()
 					{
 						BackgroundImage = button.Image,
-						BackgroundImageLayout = ImageLayout.Stretch,
+						BackgroundImageLayout = ImageLayout.None,
 						Size = new Size(size, size),
 						Location = new Point(0, y)
 					};

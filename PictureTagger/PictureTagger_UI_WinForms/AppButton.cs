@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,10 +12,19 @@ namespace PictureTagger_UI_WinForms
 {
 	public abstract class AppButton
 	{
+		private Bitmap _Image { get; set; }
 		protected bool Selected = false;
 
 		public Button Button { get; set; }
-		public Image Image { get; set; }
+		public Bitmap Image
+		{
+			get
+			{
+				return _Image.Clone(ImageRegion, _Image.PixelFormat);
+			}
+			set { _Image = value; }
+		}
+		public Rectangle ImageRegion { get; set; }
 		public AppPage Page { get; set; }
 
 		public abstract void Select();
@@ -28,6 +38,8 @@ namespace PictureTagger_UI_WinForms
 			if (Selected) return;
 
 			Button.BackColor = AppColor.BG.ToColor();
+			this.ImageRegion = new Rectangle(ImageRegion.X, 60, 60, 60);
+			Button.BackgroundImage = this.Image;
 			Selected = true;
 		}
 
@@ -36,6 +48,8 @@ namespace PictureTagger_UI_WinForms
 			if (!Selected) return;
 
 			Button.BackColor = Color.Transparent;
+			this.ImageRegion = new Rectangle(ImageRegion.X, 0, 60, 60);
+			Button.BackgroundImage = this.Image;
 			Selected = false;
 		}
 	}
