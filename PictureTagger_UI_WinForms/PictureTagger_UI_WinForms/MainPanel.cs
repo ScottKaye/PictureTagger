@@ -57,6 +57,7 @@ namespace PictureTagger_UI_WinForms
 			// Layout elements
 			Location = bounds.Location;
 			Size = bounds.Size;
+			TabStop = false;
 			layout = new Layout(bounds);
 
 			//

@@ -11,6 +11,8 @@ namespace PictureTagger_UI_WinForms
 {
 	public abstract class AppButton
 	{
+		protected bool Selected = false;
+
 		public Button Button { get; set; }
 		public Image Image { get; set; }
 		public AppPage Page { get; set; }
@@ -23,12 +25,18 @@ namespace PictureTagger_UI_WinForms
 	{
 		public override void Select()
 		{
+			if (Selected) return;
+
 			Button.BackColor = AppColor.BG.ToColor();
+			Selected = true;
 		}
 
 		public override void Deselect()
 		{
+			if (!Selected) return;
+
 			Button.BackColor = Color.Transparent;
+			Selected = false;
 		}
 	}
 
@@ -52,15 +60,21 @@ namespace PictureTagger_UI_WinForms
 
 		public override void Select()
 		{
+			if (Selected) return;
+
 			Button.Height = 50;
 			Button.Paint += Paint;
 			Button.Invalidate();
+			Selected = true;
 		}
 
 		public override void Deselect()
 		{
+			if (!Selected) return;
+
 			Button.Paint -= Paint;
 			Button.Invalidate();
+			Selected = false;
 		}
 	}
 }
