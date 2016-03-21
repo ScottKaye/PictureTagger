@@ -12,29 +12,35 @@ using PictureTagger_System;
 
 namespace PictureTagger_UI_WinForms
 {
-	public partial class Main : Form
+	public partial class MainPanel : Panel
 	{
 		private Point mousePos;
 		private Layout layout;
 		private PTData data;
+		private Rectangle bounds;
 
-		public Main()
+		public MainPanel(Rectangle bounds)
 		{
-			InitializeComponent();
-			MakeLayout();
+			this.bounds = bounds;
+			this.HandleDestroyed += MainPanel_Destroy;
+			this.HandleCreated += MainPanel_Load;
+			this.Paint += MainPanel_Paint;
+			this.MouseMove += MainPanel_MouseMove;
 
-			this.FormClosed += Main_FormClosed;
-			this.Load += Main_Load;
-			this.Paint += Main_Paint;
-			this.MouseMove += Main_MouseMove;
+			MakeLayout();
 		}
 
-		private void Main_FormClosed(object sender, FormClosedEventArgs e)
+		~MainPanel()
 		{
 			layout.Dispose();
 		}
 
-		private void Main_MouseMove(object sender, MouseEventArgs e)
+		private void MainPanel_Destroy(object sender, EventArgs e)
+		{
+			layout.Dispose();
+		}
+
+		private void MainPanel_MouseMove(object sender, MouseEventArgs e)
 		{
 			mousePos.X = e.X;
 			mousePos.Y = e.Y;
@@ -45,17 +51,13 @@ namespace PictureTagger_UI_WinForms
 			SuspendLayout();
 
 			// Colours
-			SetStyle(ControlStyles.SupportsTransparentBackColor, true);
 			BackColor = AppColor.BG.ToColor();
 			ForeColor = AppColor.FG.ToColor();
 
-			// Size + Positioning
-			FormBorderStyle = FormBorderStyle.None;
-			Size = new Size(1000, 600);
-			StartPosition = FormStartPosition.CenterScreen;
-
 			// Layout elements
-			layout = new Layout(this);
+			Location = bounds.Location;
+			Size = bounds.Size;
+			layout = new Layout(bounds);
 
 			//
 			// Controls
@@ -137,12 +139,12 @@ namespace PictureTagger_UI_WinForms
 			}
 		}
 
-		private void Main_Load(object sender, EventArgs e)
+		private void MainPanel_Load(object sender, EventArgs e)
 		{
 			data = new PTData();
 
 			var pics = data.Select("tagone");
-			foreach(var pic in pics)
+			foreach (var pic in pics)
 			{
 				Debug.WriteLine(pic.Path);
 			}
@@ -167,7 +169,7 @@ namespace PictureTagger_UI_WinForms
 			}
 		}
 
-		private void Main_Paint(object sender, PaintEventArgs e)
+		private void MainPanel_Paint(object sender, PaintEventArgs e)
 		{
 			DrawGraphicsStatic(e.Graphics);
 		}

@@ -10,7 +10,7 @@ namespace PictureTagger_UI_WinForms
 {
 	public class Layout : IDisposable
 	{
-		private Form form;
+		private Rectangle bounds;
 
 		public Rectangle SidebarRect;
 		public Rectangle ContentRect;
@@ -22,11 +22,11 @@ namespace PictureTagger_UI_WinForms
 		public Font HeaderFont;
 		public Font SubtitleFont;
 
-		public Layout(Form form)
+		public Layout(Rectangle bounds)
 		{
-			this.form = form;
+			this.bounds = bounds;
 
-			SidebarRect = new Rectangle(0, 0, 60, form.Height);
+			SidebarRect = new Rectangle(0, 0, 60, bounds.Height);
 			AppButtons.AddRange(new AppButton[] {
 				new SidebarButton()
 				{
@@ -50,12 +50,12 @@ namespace PictureTagger_UI_WinForms
 				},
 				new SubtitleButton()
 				{
-					Text = "Search",
+					Text = "Import",
 					Page = AppPage.Import,
 				}
 			});
 
-			ContentRect = new Rectangle(SidebarRect.Width, 0, form.Width - SidebarRect.Width, form.Height);
+			ContentRect = new Rectangle(SidebarRect.Width, 0, bounds.Width - SidebarRect.Width, bounds.Height);
 			TitleRect = ContentRect;
 			TitleRect.Height = 200;
 

@@ -1,6 +1,6 @@
 ﻿namespace PictureTagger_UI_WinForms
 {
-	partial class Main
+	partial class Outer
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,21 +28,11 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.SuspendLayout();
-			// 
-			// Main
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.components = new System.ComponentModel.Container();
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(376, 250);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-			this.Name = "Main";
-			this.Text = "Main";
-			this.ResumeLayout(false);
-
+			this.Text = "Outer";
 		}
 
 		#endregion
 	}
 }
-
