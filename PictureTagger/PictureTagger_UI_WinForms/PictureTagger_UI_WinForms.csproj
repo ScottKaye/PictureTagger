@@ -114,7 +114,7 @@
     <Content Include="Resources\settings.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\PictureTagger_System\PictureTagger_System.csproj">
+    <ProjectReference Include="..\PictureTagger_System\PictureTagger_System.csproj">
       <Project>{bce4b29f-7d34-49a0-ab8b-14d7a5f0edf6}</Project>
       <Name>PictureTagger_System</Name>
     </ProjectReference>
