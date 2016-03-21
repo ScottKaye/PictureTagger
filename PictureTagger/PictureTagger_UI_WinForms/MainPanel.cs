@@ -133,6 +133,9 @@ namespace PictureTagger_UI_WinForms
 				}
 			}
 
+			// Starting page
+			ChangeView(AppPage.Collections);
+
 			ResumeLayout(true);
 		}
 

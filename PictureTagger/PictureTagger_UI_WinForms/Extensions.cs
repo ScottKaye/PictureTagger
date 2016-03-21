@@ -24,5 +24,15 @@ namespace PictureTagger_UI_WinForms
 				b.FlatAppearance.MouseOverBackColor = b.BackColor;
 			};
 		}
+
+		public static Color Lighten(this Color c, int amount)
+		{
+			return Color.FromArgb(c.A, c.R + amount, c.G + amount, c.B + amount);
+		}
+
+		public static Color Darken(this Color c, int amount)
+		{
+			return c.Lighten(-amount);
+		}
 	}
 }

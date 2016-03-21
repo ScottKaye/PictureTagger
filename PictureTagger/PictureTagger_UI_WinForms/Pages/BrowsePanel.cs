@@ -27,15 +27,12 @@ namespace PictureTagger_UI_WinForms.Pages
 					Padding = new Padding(10)
 				};
 
-				RichTextBox search = new RichTextBox()
+				var search = new CustomControls.PlaceholderTextBox("Search")
 				{
-					Text = "Hello",
 					Dock = DockStyle.Fill,
 					Font = layout.BodyFont,
 					BackColor = AppColor.Sidebar.ToColor(),
-					ForeColor = AppColor.FG.ToColor(),
-					BorderStyle = BorderStyle.None,
-					Multiline = false
+					BorderStyle = BorderStyle.None
 				};
 
 				panel.Controls.Add(search);
