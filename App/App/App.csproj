@@ -90,11 +90,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bg_mountains.png" />
+    <Content Include="Resources\bg_mountains.png" />
     <Content Include="Resources\photo_add.png" />
     <Content Include="Resources\photo_collection.png" />
     <Content Include="Resources\settings.png" />
-    <None Include="Resources\SettingsCog.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
