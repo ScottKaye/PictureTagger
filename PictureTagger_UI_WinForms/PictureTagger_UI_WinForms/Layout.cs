@@ -50,7 +50,7 @@ namespace PictureTagger_UI_WinForms
 				},
 				new SubtitleButton()
 				{
-					Text = "Import",
+					Text = "Search",
 					Page = AppPage.Import,
 				}
 			});

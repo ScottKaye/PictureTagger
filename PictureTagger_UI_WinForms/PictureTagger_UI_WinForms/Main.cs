@@ -42,6 +42,8 @@ namespace PictureTagger_UI_WinForms
 
 		private void MakeLayout()
 		{
+			SuspendLayout();
+
 			// Colours
 			SetStyle(ControlStyles.SupportsTransparentBackColor, true);
 			BackColor = AppColor.BG.ToColor();
@@ -119,6 +121,8 @@ namespace PictureTagger_UI_WinForms
 
 				Controls.Add(panel);
 			}
+
+			ResumeLayout(true);
 		}
 
 		private void ChangeView(AppPage page)
@@ -127,19 +131,21 @@ namespace PictureTagger_UI_WinForms
 			foreach (var button in layout.AppButtons)
 			{
 				if (button.Page == page)
-				{
 					button.Select();
-				}
 				else
-				{
 					button.Deselect();
-				}
 			}
 		}
 
 		private void Main_Load(object sender, EventArgs e)
 		{
 			data = new PTData();
+
+			var pics = data.Select("tagone");
+			foreach(var pic in pics)
+			{
+				Debug.WriteLine(pic.Path);
+			}
 		}
 
 		private void DrawGraphicsStatic(Graphics g)
