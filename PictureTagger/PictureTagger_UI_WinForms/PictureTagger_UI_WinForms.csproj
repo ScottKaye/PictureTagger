@@ -81,6 +81,10 @@
     <Compile Include="Outer.Designer.cs">
       <DependentUpon>Outer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pages\BrowsePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Pages\Pager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

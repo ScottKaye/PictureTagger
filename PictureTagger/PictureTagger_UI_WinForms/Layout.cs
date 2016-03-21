@@ -21,6 +21,9 @@ namespace PictureTagger_UI_WinForms
 
 		public Font HeaderFont;
 		public Font SubtitleFont;
+		public Font BodyFont;
+
+		public Pages.Pager[] Pages;
 
 		public Layout(Rectangle bounds)
 		{
@@ -55,15 +58,23 @@ namespace PictureTagger_UI_WinForms
 				}
 			});
 
-			ContentRect = new Rectangle(SidebarRect.Width, 0, bounds.Width - SidebarRect.Width, bounds.Height);
-			TitleRect = ContentRect;
-			TitleRect.Height = 200;
+			ContentRect = new Rectangle(SidebarRect.Width, 200, bounds.Width - SidebarRect.Width, bounds.Height - 200);
+			TitleRect = new Rectangle(SidebarRect.Width, 0, bounds.Width - SidebarRect.Width, 200);
 
 			BackgroundImage = Properties.Resources.Mountains;
 
 			// TODO embed Roboto
 			HeaderFont = new Font("Roboto Light", 32);
 			SubtitleFont = new Font("Roboto Black", 12);
+			BodyFont = new Font("Roboto", 12);
+
+			Pages = new[]
+			{
+				new Pages.Pager() {
+					Panel = new Pages.BrowsePanel(this, ContentRect),
+					Page = AppPage.Collections
+				}
+			};
 		}
 
 		public void Dispose()
@@ -77,6 +88,7 @@ namespace PictureTagger_UI_WinForms
 			BackgroundImage.Dispose();
 			HeaderFont.Dispose();
 			SubtitleFont.Dispose();
+			BodyFont.Dispose();
 		}
 	}
 }

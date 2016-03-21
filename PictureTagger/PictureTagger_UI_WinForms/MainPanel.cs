@@ -125,6 +125,14 @@ namespace PictureTagger_UI_WinForms
 				Controls.Add(panel);
 			}
 
+			// Pages
+			{
+				foreach(var pager in layout.Pages)
+				{
+					Controls.Add(pager.Panel);
+				}
+			}
+
 			ResumeLayout(true);
 		}
 
@@ -137,6 +145,15 @@ namespace PictureTagger_UI_WinForms
 					button.Select();
 				else
 					button.Deselect();
+			}
+
+			// Select page
+			foreach(var pager in layout.Pages)
+			{
+				if (pager.Page == page)
+					pager.Panel.Show();
+				else
+					pager.Panel.Hide();
 			}
 		}
 
