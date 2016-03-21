@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace App
+namespace PictureTagger_UI_WinForms
 {
 	public partial class Extensions
 	{

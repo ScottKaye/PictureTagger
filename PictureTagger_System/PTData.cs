@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App
+namespace PictureTagger_System
 {
-	public enum AppPage
-	{
-		Collections,
-		Import,
-		Preferences
-	}
+    public class PTData
+    {
+    }
 }

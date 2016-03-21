@@ -8,13 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using PictureTagger_System;
 
-namespace App
+namespace PictureTagger_UI_WinForms
 {
 	public partial class Main : Form
 	{
 		private Point mousePos;
 		private Layout layout;
+		private PTData data;
 
 		public Main()
 		{
@@ -137,6 +139,7 @@ namespace App
 
 		private void Main_Load(object sender, EventArgs e)
 		{
+			data = new PTData();
 		}
 
 		private void DrawGraphicsStatic(Graphics g)

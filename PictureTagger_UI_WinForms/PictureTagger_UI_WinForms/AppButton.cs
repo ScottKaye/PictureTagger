@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace App
+namespace PictureTagger_UI_WinForms
 {
 	public abstract class AppButton
 	{

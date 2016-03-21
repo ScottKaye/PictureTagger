@@ -1,4 +1,4 @@
-﻿namespace App
+﻿namespace PictureTagger_UI_WinForms
 {
 	partial class Main
 	{

@@ -5,7 +5,7 @@ using System.Text;
 using System.Drawing;
 using System.Threading.Tasks;
 
-namespace App
+namespace PictureTagger_UI_WinForms
 {
 	public enum AppColor : uint
 	{

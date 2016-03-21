@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-namespace App
+namespace PictureTagger_UI_WinForms
 {
 	static class Program
 	{
