@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace PictureTagger_System
 			{
 				ID = reader.GetInt32(0),
 				Path = reader.GetString(1),
-				PrimaryColour = reader.GetInt32(2)  // TODO this might overflow
+				PrimaryColour = ColorTranslator.FromHtml(reader.GetString(2))
 			};
 		}
 	}

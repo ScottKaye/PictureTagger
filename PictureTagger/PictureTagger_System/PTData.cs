@@ -10,19 +10,13 @@ namespace PictureTagger_System
 {
 	public class PTData
 	{
-		private static SqlConnection _conn;
-		internal static SqlConnection conn
+		internal static SqlConnection conn { get; set; }
+
+		public PTData()
 		{
-			get
-			{
-				if (_conn == null)
-				{
-					_conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Environment.CurrentDirectory + @"\PictureTagger_DB.mdf;Integrated Security=True");
-					_conn.Open();
-				}
-				return _conn;
-			}
-			set { _conn = value; }
+			AppDomain.CurrentDomain.SetData("DataDirectory", Environment.CurrentDirectory);
+			conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\PictureTagger_DB.mdf;Integrated Security=True");
+			conn.Open();
 		}
 
 		~PTData()
@@ -126,33 +120,14 @@ namespace PictureTagger_System
 		/// <returns>If the insert was successful</returns>
 		public bool Insert(string path, string keywords)
 		{
-			keywords = string.Join(",", keywords.Split(',').NormalizeKeywords());
-			int id = -1;
-
-			// Add picture
-			using (var cmd = new SqlCommand("INSERT INTO [Pictures] (Path) VALUES (@Path); SELECT SCOPE_IDENTITY()", conn))
+			// Construct PTPicture
+			var picture = new PTPicture()
 			{
-				cmd.Parameters.Add(new SqlParameter("Path", path));
-				using (var reader = cmd.ExecuteReader())
-				{
-					while (reader.Read())
-					{
-						id = reader.GetInt32(0);
-					}
-				}
-			}
-
-			if (id == -1)
-			{
-				return false;
-			}
-
-			// Add keywords
-			new PTPicture()
-			{
-				ID = id,
+				Path = path,
 				Keywords = keywords.Split(',').NormalizeKeywords().ToList()
-			}.Update();
+			};
+
+			picture.Update();
 
 			return true;
 		}

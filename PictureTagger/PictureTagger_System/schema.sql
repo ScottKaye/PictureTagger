@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Pictures] (
     [PictureID]     INT           IDENTITY (1, 1) NOT NULL,
     [Path]          VARCHAR (255) NOT NULL,
-    [PrimaryColour] INT           NULL,
+    [PrimaryColour] VARCHAR (50)  NOT NULL,
     PRIMARY KEY CLUSTERED ([PictureID] ASC)
 );
 

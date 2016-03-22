@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using PictureTagger_System;
+using System.IO;
 
 namespace PictureTagger_UI_WinForms
 {
@@ -164,10 +165,10 @@ namespace PictureTagger_UI_WinForms
 		{
 			data = new PTData();
 
-			var pics = data.Select("tagone");
+			var pics = data.Select("blue");
 			foreach (var pic in pics)
 			{
-				Debug.WriteLine(pic.Path);
+				MessageBox.Show(pic.Path);
 			}
 		}
 
