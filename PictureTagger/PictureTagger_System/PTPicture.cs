@@ -22,15 +22,11 @@ namespace PictureTagger_System
         {
             get
             {
-                if (Image != null)
-                {
-                    Image = Image.FromFile(this.Path);
-                }
-                return Image;
+                return (this.Image = Image.FromFile(this.Path));
             }
             private set
             {
-                Image = value;
+                this.Image = value;
             }
         }
 

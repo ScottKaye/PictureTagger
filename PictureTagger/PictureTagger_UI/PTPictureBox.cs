@@ -13,10 +13,9 @@ namespace PictureTagger_UI
     {
         private readonly Rectangle imageSize = new Rectangle(0, 0, 75, 75);
 
-
         public PTPicture Picture { get; private set; }
 
-        public PTPictureBox (PTPicture Picture)
+        public PTPictureBox(PTPicture Picture)
         {
             this.Picture = Picture;
             this.Bounds = imageSize;
@@ -27,11 +26,7 @@ namespace PictureTagger_UI
         {
             get
             {
-                if (this.Image == null)
-                {
-                    this.Image = this.Picture.Image;
-                }
-                return this.Image;
+                return (this.Image = this.Picture.Image);
             }
             private set
             {
@@ -43,11 +38,7 @@ namespace PictureTagger_UI
         {
             get
             {
-                if (this.ImageLocation == null)
-                {
-                    this.ImageLocation = this.Picture.Path;
-                }
-                return this.ImageLocation;
+                return (this.ImageLocation = this.Picture.Path);
             }
             private set
             {
@@ -59,11 +50,7 @@ namespace PictureTagger_UI
         {
             get
             {
-                if(this.Tag == null)
-                {
-                    this.Tag = String.Join<String>(",", this.Picture.Keywords);
-                }
-                return this.Tag;
+                return (this.Tag = String.Join<String>(",", this.Picture.Keywords));
             }
             private set
             {
