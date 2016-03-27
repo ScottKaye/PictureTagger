@@ -9,15 +9,30 @@ using System.Diagnostics;
 
 namespace PictureTagger_System
 {
-	public class PTPicture
-	{
-		private bool keywordsChanged = false;
+    public class PTPicture
+    {
+        private bool keywordsChanged = false;
 
-		private List<string> _Keywords { get; set; }
-		private Color? _PrimaryColour { get; set; }
+        private List<string> _Keywords { get; set; }
+        private Color? _PrimaryColour { get; set; }
 
 		public int? ID { get; set; }
 		public string Path { get; set; }
+        public Image Image
+        {
+            get
+            {
+                if (Image != null)
+                {
+                    Image = Image.FromFile(this.Path);
+                }
+                return Image;
+            }
+            private set
+            {
+                Image = value;
+            }
+        }
 
 		public Color PrimaryColour
 		{
