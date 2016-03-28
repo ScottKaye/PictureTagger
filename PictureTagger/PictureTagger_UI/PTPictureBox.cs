@@ -18,44 +18,11 @@ namespace PictureTagger_UI
         public PTPictureBox(PTPicture Picture)
         {
             this.Picture = Picture;
+			this.ImageLocation = this.Picture.Path;
+			this.Image = Image.FromFile(this.ImageLocation);
+			this.Tag = String.Join(",", this.Picture.Keywords);
             this.Bounds = imageSize;
             this.SizeMode = PictureBoxSizeMode.Zoom;
-        }
-
-        public new Image Image
-        {
-            get
-            {
-                return (this.Image = this.Picture.Image);
-            }
-            private set
-            {
-                this.Image = value;
-            }
-        }
-
-        public new string ImageLocation
-        {
-            get
-            {
-                return (this.ImageLocation = this.Picture.Path);
-            }
-            private set
-            {
-                this.ImageLocation = value;
-            }
-        }
-
-        public new string Tag
-        {
-            get
-            {
-                return (this.Tag = String.Join<String>(",", this.Picture.Keywords));
-            }
-            private set
-            {
-                this.Tag = value;
-            }
         }
 
     }

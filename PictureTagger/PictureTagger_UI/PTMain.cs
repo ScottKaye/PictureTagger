@@ -14,21 +14,31 @@ namespace PictureTagger_UI
     public partial class PTMain : Form
     {
 
-        //Data
-        protected PTData ptData = new PTData();
+		//Data
+		private PTData ptData = null;
 
-        //UI
-        protected PTOptions optionsForm = null;
+		//UI
+		private PTOptions optionsForm = null;
 
         public PTMain()
         {
             InitializeComponent();
             optionsForm = new PTOptions();
 
-            loadImages();
+ 
         }
 
-        private void exitPTMainStripItem_Click(object sender, EventArgs e)
+		private void PTMain_Load(object sender, EventArgs e)
+		{
+			ptData = new PTData();
+		}
+
+		private void PTMain_Closing(object sender, FormClosingEventArgs e)
+		{
+			ptData = null;
+		}
+
+		private void exitPTMainStripItem_Click(object sender, EventArgs e)
         {
             if(MessageBox.Show(this, "Exit confirmation", "Exit", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2 ) == DialogResult.OK)
             {
@@ -46,22 +56,5 @@ namespace PictureTagger_UI
             optionsForm.ShowDialog(this);
         }
 
-        private void loadImages()
-        {
-            List<PTPicture> myPictures = ptData.Select();
-
-            foreach(PTPicture p in myPictures)
-            {
-                PTPictureBox tempPictureBox = new PTPictureBox(p);
-                pictureFlowLayout.Controls.Add(tempPictureBox);
-            }
-
-            //ContextMenuStrip mainContentMenuStrip = new ContextMenuStrip();
-            //ToolStripMenuItem tagToolStripItem = new ToolStripMenuItem("Tag");
-            //mainContentMenuStrip.Items.Add(tagToolStripItem);
-            //imagePictureBox.ContextMenuStrip = mainContentMenuStrip;
-        }
-
-
-    }
+	}
 }
