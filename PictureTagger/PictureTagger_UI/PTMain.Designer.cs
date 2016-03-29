@@ -38,7 +38,8 @@
 			this.helpPTMainStrip = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutPTMainStripItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainPTStatusStrip = new System.Windows.Forms.StatusStrip();
-			this.pictureFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
+			this.pictureLayout = new System.Windows.Forms.FlowLayoutPanel();
+			this.openFileDialogImageImport = new System.Windows.Forms.OpenFileDialog();
 			this.mainPTMenuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -121,22 +122,27 @@
 			this.mainPTStatusStrip.TabIndex = 1;
 			this.mainPTStatusStrip.Text = "mainPTStatusStrip";
 			// 
-			// pictureFlowLayout
+			// pictureLayout
 			// 
-			this.pictureFlowLayout.AutoScroll = true;
-			this.pictureFlowLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.pictureFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.pictureFlowLayout.Location = new System.Drawing.Point(5, 29);
-			this.pictureFlowLayout.Name = "pictureFlowLayout";
-			this.pictureFlowLayout.Size = new System.Drawing.Size(474, 405);
-			this.pictureFlowLayout.TabIndex = 2;
+			this.pictureLayout.AutoScroll = true;
+			this.pictureLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.pictureLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pictureLayout.Location = new System.Drawing.Point(5, 29);
+			this.pictureLayout.Name = "pictureLayout";
+			this.pictureLayout.Size = new System.Drawing.Size(474, 405);
+			this.pictureLayout.TabIndex = 2;
+			// 
+			// openFileDialogImageImport
+			// 
+			this.openFileDialogImageImport.Multiselect = true;
+			this.openFileDialogImageImport.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogImageImport_FileOk);
 			// 
 			// PTMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(484, 461);
-			this.Controls.Add(this.pictureFlowLayout);
+			this.Controls.Add(this.pictureLayout);
 			this.Controls.Add(this.mainPTStatusStrip);
 			this.Controls.Add(this.mainPTMenuStrip);
 			this.Name = "PTMain";
@@ -163,7 +169,8 @@
         private System.Windows.Forms.ToolStripMenuItem importPTMainStripItem;
         private System.Windows.Forms.ToolStripSeparator toolPTStripSeparator1;
         private System.Windows.Forms.StatusStrip mainPTStatusStrip;
-        private System.Windows.Forms.FlowLayoutPanel pictureFlowLayout;
-    }
+        private System.Windows.Forms.FlowLayoutPanel pictureLayout;
+		private System.Windows.Forms.OpenFileDialog openFileDialogImageImport;
+	}
 }
 

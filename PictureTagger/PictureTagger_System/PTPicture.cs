@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Diagnostics;
+using System.IO;
 
 namespace PictureTagger_System
 {
@@ -18,17 +19,6 @@ namespace PictureTagger_System
 
 		public int? ID { get; set; }
 		public string Path { get; set; }
-        public Image Image
-        {
-            get
-            {
-                return (this.Image = Image.FromFile(this.Path));
-            }
-            private set
-            {
-                this.Image = value;
-            }
-        }
 
 		public Color PrimaryColour
 		{

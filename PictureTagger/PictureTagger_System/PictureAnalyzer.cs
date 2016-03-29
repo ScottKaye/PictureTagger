@@ -42,8 +42,10 @@ namespace PictureTagger_System
 							  orderby col.GetBrightness() descending, col.GetSaturation() descending
 							  select col;
 
-				dominant = ordered.First();
+				//dominant = ordered.FirstOrDefault();
 			}
+
+			bitmap.Dispose();
 
 			return dominant;
 		}

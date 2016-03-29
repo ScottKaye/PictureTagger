@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace PictureTagger_System
 {
-	public class PTData
+	public class PTData : IDisposable
 	{
 		internal static SqlConnection conn { get; set; }
 
@@ -20,6 +20,12 @@ namespace PictureTagger_System
 		}
 
 		~PTData()
+		{
+			conn.Close();
+			conn.Dispose();
+		}
+
+		public void Dispose()
 		{
 			conn.Close();
 			conn.Dispose();
@@ -118,10 +124,10 @@ namespace PictureTagger_System
 		/// <param name="path">Physical file path of the picture</param>
 		/// <param name="keywords">Keywords to associate with the picture</param>
 		/// <returns>If the insert was successful</returns>
-		public bool Insert(string path, string keywords)
+		public bool Insert(string path, string keywords, ref PTPicture picture)
 		{
 			// Construct PTPicture
-			var picture = new PTPicture()
+			picture = new PTPicture()
 			{
 				Path = path,
 				Keywords = keywords.Split(',').NormalizeKeywords().ToList()
@@ -131,5 +137,6 @@ namespace PictureTagger_System
 
 			return true;
 		}
+
 	}
 }

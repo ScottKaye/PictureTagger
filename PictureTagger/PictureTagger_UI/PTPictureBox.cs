@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
 using PictureTagger_System;
 
 namespace PictureTagger_UI
@@ -18,10 +19,19 @@ namespace PictureTagger_UI
         public PTPictureBox(PTPicture Picture)
         {
             this.Picture = Picture;
-			this.ImageLocation = this.Picture.Path;
-			this.Image = Image.FromFile(this.ImageLocation);
-			this.Tag = String.Join(",", this.Picture.Keywords);
-            this.Bounds = imageSize;
+			if(File.Exists(this.Picture.Path))
+			{
+				this.ImageLocation = this.Picture.Path;
+				using (var bmpTemp = new Bitmap(this.ImageLocation))
+				{
+					this.Image = new Bitmap(bmpTemp);
+				}
+			}
+			if(this.Picture.Keywords != null)
+			{ 
+				this.Tag = String.Join(",", this.Picture.Keywords);
+			}
+			this.Bounds = imageSize;
             this.SizeMode = PictureBoxSizeMode.Zoom;
         }
 
