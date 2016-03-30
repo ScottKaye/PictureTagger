@@ -4,15 +4,21 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace PictureTagger_System
 {
 	internal static class Extensions
 	{
+		internal static bool IsAlphaNum(this string str)
+		{
+			return new Regex("^[a-zA-Z0-9]+$").IsMatch(str);
+		}
+
 		internal static string NormalizeKeyword(this string keyword)
 		{
-			return keyword.ToLowerInvariant().Trim();
+			return new Regex("[^a-z0-9]").Replace(keyword.ToLowerInvariant().Trim(), "");
 		}
 
 		internal static IEnumerable<string> NormalizeKeywords(this string[] keywords)

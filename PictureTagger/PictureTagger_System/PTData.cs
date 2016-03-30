@@ -19,12 +19,6 @@ namespace PictureTagger_System
 			conn.Open();
 		}
 
-		~PTData()
-		{
-			conn.Close();
-			conn.Dispose();
-		}
-
 		public void Dispose()
 		{
 			conn.Close();
