@@ -8,5 +8,6 @@
 CREATE TABLE [dbo].[Tags] (
     [PictureID] INT          NOT NULL,
     [Tag]       VARCHAR (20) NOT NULL,
-    PRIMARY KEY CLUSTERED ([Tag] ASC, [PictureID] ASC)
+    PRIMARY KEY CLUSTERED ([Tag] ASC, [PictureID] ASC), 
+    CONSTRAINT [FK_Tags_Pictures] FOREIGN KEY ([PictureID]) REFERENCES Pictures([PictureID])
 );

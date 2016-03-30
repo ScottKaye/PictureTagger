@@ -14,9 +14,8 @@ namespace PictureTagger_UI
 {
     public partial class PTMain : Form
     {
-
 		//Data
-		private PTData ptData = null;
+		private PTData ptData;
 
 		//UI
 		private PTOptions optionsForm = null;
