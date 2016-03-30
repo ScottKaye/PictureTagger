@@ -34,7 +34,7 @@ namespace PictureTagger_System
 		{
 			var results = new List<PTPicture>();
 
-			using (var cmd = new SqlCommand("SELECT * FROM [Pictures]", conn))
+			using (var cmd = new SqlCommand("SELECT * FROM [Pictures];", conn))
 			{
 				using (var reader = cmd.ExecuteReader())
 				{
@@ -44,6 +44,12 @@ namespace PictureTagger_System
 					}
 				}
 			}
+
+			results.ForEach(r =>
+			{
+				if (r != null)
+					r.LoadKeywords();
+			});
 
 			return results;
 		}
@@ -76,6 +82,12 @@ namespace PictureTagger_System
 				}
 			}
 
+			results.ForEach(r =>
+			{
+				if (r != null)
+					r.LoadKeywords();
+			});
+
 			return results;
 		}
 
@@ -88,7 +100,7 @@ namespace PictureTagger_System
 		{
 			PTPicture picture = null;
 
-			using (var cmd = new SqlCommand("SELECT TOP 1 * FROM [Pictures] WHERE PictureID = @PictureID", conn))
+			using (var cmd = new SqlCommand("SELECT TOP 1 * FROM [Pictures] WHERE PictureID = @PictureID;", conn))
 			{
 				cmd.Parameters.Add(new SqlParameter("PictureID", ID));
 				using (var reader = cmd.ExecuteReader())
@@ -99,6 +111,9 @@ namespace PictureTagger_System
 					}
 				}
 			}
+
+			if (picture != null)
+				picture.LoadKeywords();
 
 			return picture;
 		}
@@ -112,7 +127,7 @@ namespace PictureTagger_System
 		{
 			PTPicture picture = null;
 
-			using (var cmd = new SqlCommand("SELECT TOP 1 * FROM [Pictures] WHERE Path = @Path", conn))
+			using (var cmd = new SqlCommand("SELECT TOP 1 * FROM [Pictures] WHERE Path = @Path;", conn))
 			{
 				cmd.Parameters.Add(new SqlParameter("Path", path));
 				using (var reader = cmd.ExecuteReader())
@@ -123,6 +138,9 @@ namespace PictureTagger_System
 					}
 				}
 			}
+
+			if (picture != null)
+				picture.LoadKeywords();
 
 			return picture;
 		}

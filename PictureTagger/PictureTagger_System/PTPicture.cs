@@ -68,6 +68,22 @@ namespace PictureTagger_System
 			return true;
 		}
 
+		public bool LoadKeywords()
+		{
+			using (var cmd = new SqlCommand("SELECT t.Tag FROM [Pictures] p JOIN [Tags] t ON p.PictureID = t.PictureID WHERE p.PictureID=@PictureID;", PTData.conn))
+			{
+				cmd.Parameters.Add(new SqlParameter("PictureID", this.ID));
+				using (var reader = cmd.ExecuteReader())
+				{
+					while (reader.Read())
+					{
+						this.Keywords.Add(reader.GetString(0));
+					}
+				}
+			}
+			return true;
+		}
+
 		public bool Update()
 		{
 			if (this.ID == null)

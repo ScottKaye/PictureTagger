@@ -32,8 +32,10 @@ namespace PictureTagger_System
 			{
 				ID = reader.GetInt32(0),
 				Path = reader.GetString(1),
+				Keywords = new List<string>(),
 				PrimaryColour = ColorTranslator.FromHtml(reader.GetString(2))
 			};
 		}
+
 	}
 }
