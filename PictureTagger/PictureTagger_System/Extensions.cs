@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 
 namespace PictureTagger_System
 {
-	internal static class Extensions
+	public static class Extensions
 	{
-		internal static bool IsAlphaNum(this string str)
+		public static bool IsAlphaNum(this string str)
 		{
 			return new Regex("^[a-zA-Z0-9]+$").IsMatch(str);
 		}
 
-		internal static string NormalizeKeyword(this string keyword)
+		public static string NormalizeKeyword(this string keyword)
 		{
 			return new Regex("[^a-z0-9]").Replace(keyword.ToLowerInvariant().Trim(), "");
 		}
 
-		internal static IEnumerable<string> NormalizeKeywords(this string[] keywords)
+		public static IEnumerable<string> NormalizeKeywords(this string[] keywords)
 		{
 			return keywords.Select(str => str.NormalizeKeyword());
 		}

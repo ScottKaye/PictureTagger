@@ -38,12 +38,6 @@ namespace PictureTagger_UI
 				setupImage(picture);
 			}
 
-			foreach (var control in pictureLayout.Controls)
-			{
-				PTPictureBox pt = (PTPictureBox)control;
-				pt.Dispose();
-			}
-
 		}
 
 		private void PTMain_Closing(object sender, FormClosingEventArgs e)
@@ -119,7 +113,7 @@ namespace PictureTagger_UI
 					File.Copy(oldFile, newFile);
 
 				PTPicture picture = null;
-				ptData.Insert(newFile, "", out picture);
+				ptData.Insert(newFile, "unknown", out picture);
 
 				setupImage(picture);
 
@@ -144,7 +138,7 @@ namespace PictureTagger_UI
 			PTPictureBox picturebox = (PTPictureBox)deletePictureBox.Tag;
 
 			PTTag tagForm = new PTTag(picturebox.Picture);
-			tagForm.Show();
+			tagForm.ShowDialog(this);
 		}
 	}
 }
