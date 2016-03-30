@@ -53,17 +53,22 @@ namespace PictureTagger_UI
 
 		private void setupImage(PTPicture picture)
 		{
-			PTPictureBox picturebox = new PTPictureBox(picture);
-			pictureLayout.Controls.Add(picturebox);
+			PTPictureBox picturebox = new PTPictureBox(picture); //Encapsulate PTPicture in PictureBox
+			pictureLayout.Controls.Add(picturebox); //Add to UI
 
-			ContextMenuStrip pictureboxContextMenuStrip = new ContextMenuStrip();
+			ContextMenuStrip pictureboxContextMenuStrip = new ContextMenuStrip(); //Create Context Menu Strip (Right Click Menu)
 
-			ToolStripMenuItem deletePictureBoxMenuItem = new ToolStripMenuItem("Delete");
-			deletePictureBoxMenuItem.Tag = picturebox;
-			deletePictureBoxMenuItem.Click += DeletePictureBoxMenuItem_Click;
+			ToolStripMenuItem deletePictureBoxMenuItem = new ToolStripMenuItem("Delete"); //Create Tool Strip Menu Item (Delete)
+			deletePictureBoxMenuItem.Tag = picturebox; //Encapsulate PTPicture in Tool Strip Menu Item
+			deletePictureBoxMenuItem.Click += DeletePictureBoxMenuItem_Click; //Hook Delete Click Event
 
-			pictureboxContextMenuStrip.Items.Add(deletePictureBoxMenuItem);
-			picturebox.ContextMenuStrip = pictureboxContextMenuStrip;
+			ToolStripMenuItem tagPictureBoxMenuItem = new ToolStripMenuItem("Tag"); //Create Tool Strip Menu Item (Delete)
+			tagPictureBoxMenuItem.Tag = picturebox; //Encapsulate PTPicture in Tool Strip Menu Item
+			tagPictureBoxMenuItem.Click += TagPictureBoxMenuItem_Click; //Hook Delete Click Event
+
+			pictureboxContextMenuStrip.Items.Add(deletePictureBoxMenuItem); //Add Delete Tool Strip Menu Item to Context Menu Strip
+			pictureboxContextMenuStrip.Items.Add(tagPictureBoxMenuItem); //Add Tag Tool Strip Menu Item to Context Menu Strip
+			picturebox.ContextMenuStrip = pictureboxContextMenuStrip; //Assign Context Menu Strip to PictureBox
 		}
 
 		private void exitPTMainStripItem_Click(object sender, EventArgs e)
@@ -76,12 +81,12 @@ namespace PictureTagger_UI
 
         private void importPTMainStripItem_Click(object sender, EventArgs e)
         {
-			openFileDialogImageImport.ShowDialog(this);
+			openFileDialogImageImport.ShowDialog(this); //Display Open Dialog for Importing Image
         }
 
         private void optionsPTMainStripItem_Click(object sender, EventArgs e)
         {
-            optionsForm.ShowDialog(this);
+            optionsForm.ShowDialog(this); //Options Form for any Customizing
         }
 
 		private void openFileDialogImageImport_FileOk(object sender, CancelEventArgs e)
@@ -89,6 +94,12 @@ namespace PictureTagger_UI
 			var dialog = ((OpenFileDialog)sender);
 			foreach (var file in dialog.FileNames)
 			{
+				if (!File.Exists(file))
+				{
+					MessageBox.Show("File Doesn't Exist!", "Invalid File", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					continue;
+				}
+
 				var fileName = Path.GetFileName(file);
 				var oldDir = Path.GetDirectoryName(file);
 				var newDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PictureTagger\";
@@ -96,11 +107,19 @@ namespace PictureTagger_UI
 				var oldFile = file;
 				var newFile = newDir + fileName;
 
-				File.Copy(oldFile, newFile, true);
+				PTPicture p = ptData.Select(newFile);
+
+				if (p != null && File.Exists(newFile))
+				{
+					MessageBox.Show("File Already Exists", "Invalid File", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					continue;
+				}
+
+				if (!File.Exists(newFile))
+					File.Copy(oldFile, newFile);
 
 				PTPicture picture = null;
-
-				ptData.Insert(newFile, "", ref picture);
+				ptData.Insert(newFile, "", out picture);
 
 				setupImage(picture);
 
@@ -111,13 +130,21 @@ namespace PictureTagger_UI
 		{
 			ToolStripMenuItem deletePictureBox = (ToolStripMenuItem)sender;
 			PTPictureBox picturebox = (PTPictureBox)deletePictureBox.Tag;
-			pictureLayout.Controls.Remove(picturebox);
-			picturebox.Picture.Delete();
+			pictureLayout.Controls.Remove(picturebox); //Remove from UI
+			picturebox.Picture.Delete(); //Remove from DB
 			if (File.Exists(picturebox.Picture.Path))
 			{
-				File.Delete(picturebox.Picture.Path);
+				File.Delete(picturebox.Picture.Path); //Remove from File System
 			}
 		}
 
+		public void TagPictureBoxMenuItem_Click(object sender, EventArgs e)
+		{
+			ToolStripMenuItem deletePictureBox = (ToolStripMenuItem)sender;
+			PTPictureBox picturebox = (PTPictureBox)deletePictureBox.Tag;
+
+			PTTag tagForm = new PTTag(picturebox.Picture);
+			tagForm.Show();
+		}
 	}
 }

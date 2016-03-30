@@ -12,9 +12,9 @@ namespace PictureTagger_UI
 {
     public class PTPictureBox : PictureBox
     {
-        private readonly Rectangle imageSize = new Rectangle(0, 0, 75, 75);
+		private readonly Rectangle ImageSize = new Rectangle(0, 0, 75, 75);
 
-        public PTPicture Picture { get; private set; }
+		public PTPicture Picture { get; private set; }
 
         public PTPictureBox(PTPicture Picture)
         {
@@ -31,7 +31,7 @@ namespace PictureTagger_UI
 			{ 
 				this.Tag = String.Join(",", this.Picture.Keywords);
 			}
-			this.Bounds = imageSize;
+			this.Bounds = ImageSize;
             this.SizeMode = PictureBoxSizeMode.Zoom;
         }
 

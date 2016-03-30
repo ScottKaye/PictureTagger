@@ -31,6 +31,7 @@ namespace PictureTagger_System
 			conn.Dispose();
 		}
 
+
 		/// <summary>
 		/// Get all pictures in the database (maximum 100)
 		/// </summary>
@@ -51,16 +52,6 @@ namespace PictureTagger_System
 			}
 
 			return results;
-		}
-
-		/// <summary>
-		/// Search the database for pictures matching keywords separated by commas
-		/// </summary>
-		/// <param name="searchStr">Comma-separated list of keywords</param>
-		/// <returns>List of matched pictures</returns>
-		public List<PTPicture> Select(string searchStr)
-		{
-			return Select(searchStr.Split(','));
 		}
 
 		/// <summary>
@@ -103,9 +94,33 @@ namespace PictureTagger_System
 		{
 			PTPicture picture = null;
 
-			using (var cmd = new SqlCommand("SELECT * FROM [Pictures] WHERE ID = @ID LIMIT 1", conn))
+			using (var cmd = new SqlCommand("SELECT TOP 1 * FROM [Pictures] WHERE PictureID = @PictureID", conn))
 			{
-				cmd.Parameters.Add(new SqlParameter("ID", ID));
+				cmd.Parameters.Add(new SqlParameter("PictureID", ID));
+				using (var reader = cmd.ExecuteReader())
+				{
+					while (reader.Read())
+					{
+						picture = reader.ToPTPicture();
+					}
+				}
+			}
+
+			return picture;
+		}
+
+		/// <summary>
+		/// Finds a picture by Path
+		/// </summary>
+		/// <param name="Path">Picture Path to select</param>
+		/// <returns>Matching PTPicture</returns>
+		public PTPicture Select(string path)
+		{
+			PTPicture picture = null;
+
+			using (var cmd = new SqlCommand("SELECT TOP 1 * FROM [Pictures] WHERE Path = @Path", conn))
+			{
+				cmd.Parameters.Add(new SqlParameter("Path", path));
 				using (var reader = cmd.ExecuteReader())
 				{
 					while (reader.Read())
@@ -124,7 +139,7 @@ namespace PictureTagger_System
 		/// <param name="path">Physical file path of the picture</param>
 		/// <param name="keywords">Keywords to associate with the picture</param>
 		/// <returns>If the insert was successful</returns>
-		public bool Insert(string path, string keywords, ref PTPicture picture)
+		public bool Insert(string path, string keywords, out PTPicture picture)
 		{
 			// Construct PTPicture
 			picture = new PTPicture()

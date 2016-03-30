@@ -69,19 +69,19 @@
 			// importPTMainStripItem
 			// 
 			this.importPTMainStripItem.Name = "importPTMainStripItem";
-			this.importPTMainStripItem.Size = new System.Drawing.Size(110, 22);
+			this.importPTMainStripItem.Size = new System.Drawing.Size(152, 22);
 			this.importPTMainStripItem.Text = "&Import";
 			this.importPTMainStripItem.Click += new System.EventHandler(this.importPTMainStripItem_Click);
 			// 
 			// toolPTStripSeparator1
 			// 
 			this.toolPTStripSeparator1.Name = "toolPTStripSeparator1";
-			this.toolPTStripSeparator1.Size = new System.Drawing.Size(107, 6);
+			this.toolPTStripSeparator1.Size = new System.Drawing.Size(149, 6);
 			// 
 			// exitPTMainStripItem
 			// 
 			this.exitPTMainStripItem.Name = "exitPTMainStripItem";
-			this.exitPTMainStripItem.Size = new System.Drawing.Size(110, 22);
+			this.exitPTMainStripItem.Size = new System.Drawing.Size(152, 22);
 			this.exitPTMainStripItem.Text = "E&xit";
 			this.exitPTMainStripItem.Click += new System.EventHandler(this.exitPTMainStripItem_Click);
 			// 
@@ -134,7 +134,6 @@
 			// 
 			// openFileDialogImageImport
 			// 
-			this.openFileDialogImageImport.Multiselect = true;
 			this.openFileDialogImageImport.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogImageImport_FileOk);
 			// 
 			// PTMain
