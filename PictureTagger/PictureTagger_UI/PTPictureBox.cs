@@ -19,18 +19,12 @@ namespace PictureTagger_UI
         public PTPictureBox(PTPicture Picture)
         {
             this.Picture = Picture;
-			if(File.Exists(this.Picture.Path))
+			this.ImageLocation = this.Picture.Path;
+			using (var bmpTemp = new Bitmap(this.ImageLocation))
 			{
-				this.ImageLocation = this.Picture.Path;
-				using (var bmpTemp = new Bitmap(this.ImageLocation))
-				{
-					this.Image = new Bitmap(bmpTemp);
-				}
+				this.Image = new Bitmap(bmpTemp);
 			}
-			if(this.Picture.Keywords != null)
-			{ 
-				this.Tag = String.Join(",", this.Picture.Keywords);
-			}
+			this.Tag = String.Join(",", this.Picture.Keywords);
 			this.Bounds = ImageSize;
             this.SizeMode = PictureBoxSizeMode.Zoom;
         }

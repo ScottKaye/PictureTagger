@@ -37,5 +37,20 @@ namespace PictureTagger_System
 			};
 		}
 
+		internal static bool LoadKeywords(this PTPicture p)
+		{
+			using (var cmd = new SqlCommand("SELECT t.Tag FROM [Pictures] p JOIN [Tags] t ON p.PictureID = t.PictureID WHERE p.PictureID=@PictureID;", PTData.conn))
+			{
+				cmd.Parameters.Add(new SqlParameter("PictureID", p.ID));
+				using (var reader = cmd.ExecuteReader())
+				{
+					while (reader.Read())
+					{
+						p.Keywords.Add(reader.GetString(0));
+					}
+				}
+			}
+			return true;
+		}
 	}
 }

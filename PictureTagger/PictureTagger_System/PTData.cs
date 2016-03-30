@@ -10,6 +10,8 @@ namespace PictureTagger_System
 {
 	public class PTData : IDisposable
 	{
+		private bool disposed = false;
+
 		internal static SqlConnection conn { get; set; }
 
 		public PTData()
@@ -19,10 +21,29 @@ namespace PictureTagger_System
 			conn.Open();
 		}
 
+		~PTData()
+		{
+			Dispose(false);
+		}
+
 		public void Dispose()
 		{
-			conn.Close();
-			conn.Dispose();
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposed)
+				return;
+
+			if (disposing)
+			{
+				conn.Close();
+				conn.Dispose();
+			}
+
+			disposed = true;
 		}
 
 
@@ -48,7 +69,7 @@ namespace PictureTagger_System
 			results.ForEach(r =>
 			{
 				if (r != null)
-					r.LoadKeywords();
+					r?.LoadKeywords();
 			});
 
 			return results;
@@ -85,7 +106,7 @@ namespace PictureTagger_System
 			results.ForEach(r =>
 			{
 				if (r != null)
-					r.LoadKeywords();
+					r?.LoadKeywords();
 			});
 
 			return results;
@@ -112,8 +133,7 @@ namespace PictureTagger_System
 				}
 			}
 
-			if (picture != null)
-				picture.LoadKeywords();
+			picture?.LoadKeywords();
 
 			return picture;
 		}
@@ -139,8 +159,7 @@ namespace PictureTagger_System
 				}
 			}
 
-			if (picture != null)
-				picture.LoadKeywords();
+			picture?.LoadKeywords();
 
 			return picture;
 		}
@@ -158,6 +177,26 @@ namespace PictureTagger_System
 			{
 				Path = path,
 				Keywords = keywords.Split(',').NormalizeKeywords().ToList()
+			};
+
+			picture.Update();
+
+			return true;
+		}
+
+		/// <summary>
+		/// Insert a picture into the database
+		/// </summary>
+		/// <param name="path">Physical file path of the picture</param>
+		/// <param name="keywords">Keywords to associate with the picture</param>
+		/// <returns>If the insert was successful</returns>
+		public bool Insert(string path, out PTPicture picture)
+		{
+			// Construct PTPicture
+			picture = new PTPicture()
+			{
+				Path = path,
+				Keywords = new List<String>()
 			};
 
 			picture.Update();
