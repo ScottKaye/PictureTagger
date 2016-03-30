@@ -26,7 +26,7 @@ namespace PictureTagger_System
 
 		// Relationships
 
-		private EntitySet<PTTag> _Tags;
+		private EntitySet<PTTag> _Tags = new EntitySet<PTTag>();
 		[Association(Storage = "_Tags", OtherKey = "PictureID")]
 		public EntitySet<PTTag> Tags
 		{

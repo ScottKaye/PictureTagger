@@ -12,36 +12,35 @@ using PictureTagger_System;
 
 namespace PictureTagger_UI
 {
-    public partial class PTMain : Form
-    {
+	public partial class PTMain : Form
+	{
 		//Data
 		private PTData ptData;
 
 		//UI
 		private PTOptions optionsForm = null;
 
-        public PTMain()
-        {
-            InitializeComponent();
-            optionsForm = new PTOptions();
-
-        }
+		public PTMain()
+		{
+			InitializeComponent();
+			optionsForm = new PTOptions();
+		}
 
 		private void PTMain_Load(object sender, EventArgs e)
 		{
 			ptData = new PTData();
 
-			List<PTPicture> pictures = ptData.Select();
-			foreach (var picture in pictures)
+			// Take first 20 pictures in database
+			// TODO pagination?
+			foreach (var picture in ptData.Pictures().Take(20))
 			{
 				setupImage(picture);
 			}
-
 		}
 
 		private void PTMain_Closing(object sender, FormClosingEventArgs e)
 		{
-			ptData.Dispose();
+			ptData.Save();
 		}
 
 		private void setupImage(PTPicture picture)
@@ -65,22 +64,22 @@ namespace PictureTagger_UI
 		}
 
 		private void exitPTMainStripItem_Click(object sender, EventArgs e)
-        {
-            if(MessageBox.Show(this, "Exit confirmation", "Exit", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2 ) == DialogResult.OK)
-            {
-                Application.Exit();
-            }
-        }
+		{
+			if (MessageBox.Show(this, "Exit confirmation", "Exit", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+			{
+				Application.Exit();
+			}
+		}
 
-        private void importPTMainStripItem_Click(object sender, EventArgs e)
-        {
+		private void importPTMainStripItem_Click(object sender, EventArgs e)
+		{
 			openFileDialogImageImport.ShowDialog(this); //Display Open Dialog for Importing Image
-        }
+		}
 
-        private void optionsPTMainStripItem_Click(object sender, EventArgs e)
-        {
-            optionsForm.ShowDialog(this); //Options Form for any Customizing
-        }
+		private void optionsPTMainStripItem_Click(object sender, EventArgs e)
+		{
+			optionsForm.ShowDialog(this); //Options Form for any Customizing
+		}
 
 		private void openFileDialogImageImport_FileOk(object sender, CancelEventArgs e)
 		{
@@ -97,10 +96,12 @@ namespace PictureTagger_UI
 				var oldDir = Path.GetDirectoryName(file);
 				var newDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PictureTagger\";
 
+				Directory.CreateDirectory(newDir);
+
 				var oldFile = file;
 				var newFile = newDir + fileName;
 
-				PTPicture p = ptData.Select(newFile);
+				PTPicture p = ptData.Pictures().FirstOrDefault(pic => pic.Path == newFile);
 
 				if (p != null && File.Exists(newFile))
 				{
@@ -111,11 +112,14 @@ namespace PictureTagger_UI
 				if (!File.Exists(newFile))
 					File.Copy(oldFile, newFile);
 
-				PTPicture picture = null;
-				ptData.Insert(newFile, "unknown", out picture);
+				PTPicture picture = new PTPicture()
+				{
+					Path = newFile,
+					PrimaryColour = ColorTranslator.ToHtml(PictureAnalyzer.GetDominantColour(newFile))
+				};
 
+				ptData.Insert(picture);
 				setupImage(picture);
-
 			}
 		}
 
@@ -124,7 +128,7 @@ namespace PictureTagger_UI
 			ToolStripMenuItem deletePictureBox = (ToolStripMenuItem)sender;
 			PTPictureBox picturebox = (PTPictureBox)deletePictureBox.Tag;
 			pictureLayout.Controls.Remove(picturebox); //Remove from UI
-			picturebox.Picture.Delete(); //Remove from DB
+			ptData.Delete(picturebox.Picture); //Remove from DB
 			if (File.Exists(picturebox.Picture.Path))
 			{
 				File.Delete(picturebox.Picture.Path); //Remove from File System

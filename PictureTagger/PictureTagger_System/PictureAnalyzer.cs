@@ -9,14 +9,14 @@ using System.Diagnostics;
 
 namespace PictureTagger_System
 {
-	internal static class PictureAnalyzer
+	public static class PictureAnalyzer
 	{
-		internal static Color GetDominantColour(string filename)
+		public static Color GetDominantColour(string filename)
 		{
 			return GetDominantColour(new Bitmap(filename));
 		}
 
-		internal static Color GetDominantColour(Bitmap bitmap)
+		public static Color GetDominantColour(Bitmap bitmap)
 		{
 			int cost = 50;
 			Color dominant = Color.Black;

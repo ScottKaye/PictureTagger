@@ -45,14 +45,16 @@
 			// 
 			// mainPTMenuStrip
 			// 
+			this.mainPTMenuStrip.ImageScalingSize = new System.Drawing.Size(28, 28);
 			this.mainPTMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.filePTMainStrip,
             this.toolsPTMainStrip,
             this.helpPTMainStrip});
-			this.mainPTMenuStrip.Location = new System.Drawing.Point(5, 5);
+			this.mainPTMenuStrip.Location = new System.Drawing.Point(9, 9);
 			this.mainPTMenuStrip.Name = "mainPTMenuStrip";
+			this.mainPTMenuStrip.Padding = new System.Windows.Forms.Padding(11, 4, 0, 4);
 			this.mainPTMenuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.mainPTMenuStrip.Size = new System.Drawing.Size(474, 24);
+			this.mainPTMenuStrip.Size = new System.Drawing.Size(869, 42);
 			this.mainPTMenuStrip.TabIndex = 0;
 			this.mainPTMenuStrip.Text = "Menu";
 			// 
@@ -63,25 +65,25 @@
             this.toolPTStripSeparator1,
             this.exitPTMainStripItem});
 			this.filePTMainStrip.Name = "filePTMainStrip";
-			this.filePTMainStrip.Size = new System.Drawing.Size(37, 20);
+			this.filePTMainStrip.Size = new System.Drawing.Size(56, 34);
 			this.filePTMainStrip.Text = "&File";
 			// 
 			// importPTMainStripItem
 			// 
 			this.importPTMainStripItem.Name = "importPTMainStripItem";
-			this.importPTMainStripItem.Size = new System.Drawing.Size(152, 22);
+			this.importPTMainStripItem.Size = new System.Drawing.Size(167, 34);
 			this.importPTMainStripItem.Text = "&Import";
 			this.importPTMainStripItem.Click += new System.EventHandler(this.importPTMainStripItem_Click);
 			// 
 			// toolPTStripSeparator1
 			// 
 			this.toolPTStripSeparator1.Name = "toolPTStripSeparator1";
-			this.toolPTStripSeparator1.Size = new System.Drawing.Size(149, 6);
+			this.toolPTStripSeparator1.Size = new System.Drawing.Size(164, 6);
 			// 
 			// exitPTMainStripItem
 			// 
 			this.exitPTMainStripItem.Name = "exitPTMainStripItem";
-			this.exitPTMainStripItem.Size = new System.Drawing.Size(152, 22);
+			this.exitPTMainStripItem.Size = new System.Drawing.Size(167, 34);
 			this.exitPTMainStripItem.Text = "E&xit";
 			this.exitPTMainStripItem.Click += new System.EventHandler(this.exitPTMainStripItem_Click);
 			// 
@@ -90,13 +92,13 @@
 			this.toolsPTMainStrip.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.optionsPTMainStripItem});
 			this.toolsPTMainStrip.Name = "toolsPTMainStrip";
-			this.toolsPTMainStrip.Size = new System.Drawing.Size(47, 20);
+			this.toolsPTMainStrip.Size = new System.Drawing.Size(72, 34);
 			this.toolsPTMainStrip.Text = "&Tools";
 			// 
 			// optionsPTMainStripItem
 			// 
 			this.optionsPTMainStripItem.Name = "optionsPTMainStripItem";
-			this.optionsPTMainStripItem.Size = new System.Drawing.Size(116, 22);
+			this.optionsPTMainStripItem.Size = new System.Drawing.Size(178, 34);
 			this.optionsPTMainStripItem.Text = "&Options";
 			this.optionsPTMainStripItem.Click += new System.EventHandler(this.optionsPTMainStripItem_Click);
 			// 
@@ -105,20 +107,22 @@
 			this.helpPTMainStrip.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutPTMainStripItem});
 			this.helpPTMainStrip.Name = "helpPTMainStrip";
-			this.helpPTMainStrip.Size = new System.Drawing.Size(44, 20);
+			this.helpPTMainStrip.Size = new System.Drawing.Size(68, 34);
 			this.helpPTMainStrip.Text = "&Help";
 			// 
 			// aboutPTMainStripItem
 			// 
 			this.aboutPTMainStripItem.Name = "aboutPTMainStripItem";
-			this.aboutPTMainStripItem.Size = new System.Drawing.Size(116, 22);
+			this.aboutPTMainStripItem.Size = new System.Drawing.Size(177, 34);
 			this.aboutPTMainStripItem.Text = "&About...";
 			// 
 			// mainPTStatusStrip
 			// 
-			this.mainPTStatusStrip.Location = new System.Drawing.Point(5, 434);
+			this.mainPTStatusStrip.ImageScalingSize = new System.Drawing.Size(28, 28);
+			this.mainPTStatusStrip.Location = new System.Drawing.Point(9, 820);
 			this.mainPTStatusStrip.Name = "mainPTStatusStrip";
-			this.mainPTStatusStrip.Size = new System.Drawing.Size(474, 22);
+			this.mainPTStatusStrip.Padding = new System.Windows.Forms.Padding(2, 0, 26, 0);
+			this.mainPTStatusStrip.Size = new System.Drawing.Size(869, 22);
 			this.mainPTStatusStrip.TabIndex = 1;
 			this.mainPTStatusStrip.Text = "mainPTStatusStrip";
 			// 
@@ -127,25 +131,28 @@
 			this.pictureLayout.AutoScroll = true;
 			this.pictureLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.pictureLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.pictureLayout.Location = new System.Drawing.Point(5, 29);
+			this.pictureLayout.Location = new System.Drawing.Point(9, 51);
+			this.pictureLayout.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.pictureLayout.Name = "pictureLayout";
-			this.pictureLayout.Size = new System.Drawing.Size(474, 405);
+			this.pictureLayout.Size = new System.Drawing.Size(869, 769);
 			this.pictureLayout.TabIndex = 2;
 			// 
 			// openFileDialogImageImport
 			// 
+			this.openFileDialogImageImport.Filter = "Image files (*.jpg, *.jpeg, *.gif, *.png) | *.jpg; *.jpeg; *.gif; *.png";
 			this.openFileDialogImageImport.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogImageImport_FileOk);
 			// 
 			// PTMain
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(484, 461);
+			this.ClientSize = new System.Drawing.Size(887, 851);
 			this.Controls.Add(this.pictureLayout);
 			this.Controls.Add(this.mainPTStatusStrip);
 			this.Controls.Add(this.mainPTMenuStrip);
+			this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.Name = "PTMain";
-			this.Padding = new System.Windows.Forms.Padding(5);
+			this.Padding = new System.Windows.Forms.Padding(9, 9, 9, 9);
 			this.Text = "Picture Tagger";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PTMain_Closing);
 			this.Load += new System.EventHandler(this.PTMain_Load);

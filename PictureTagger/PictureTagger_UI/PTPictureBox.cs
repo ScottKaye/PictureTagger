@@ -10,24 +10,25 @@ using PictureTagger_System;
 
 namespace PictureTagger_UI
 {
-    public class PTPictureBox : PictureBox
-    {
+	public class PTPictureBox : PictureBox
+	{
 		private readonly Rectangle ImageSize = new Rectangle(0, 0, 75, 75);
 
 		public PTPicture Picture { get; private set; }
 
-        public PTPictureBox(PTPicture Picture)
-        {
-            this.Picture = Picture;
+		public PTPictureBox(PTPicture Picture)
+		{
+			this.Picture = Picture;
 			this.ImageLocation = this.Picture.Path;
 			using (var bmpTemp = new Bitmap(this.ImageLocation))
 			{
 				this.Image = new Bitmap(bmpTemp);
 			}
-			this.Tag = String.Join(",", this.Picture.Keywords);
+			this.Tag = String.Join(",", from tag in this.Picture.Tags
+										select tag.Tag);
 			this.Bounds = ImageSize;
-            this.SizeMode = PictureBoxSizeMode.Zoom;
-        }
+			this.SizeMode = PictureBoxSizeMode.Zoom;
+		}
 
-    }
+	}
 }

@@ -23,22 +23,30 @@ namespace PictureTagger_UI
 
 		private void PTTag_Load(object sender, EventArgs e)
 		{
-			foreach (var keyword in Picture.Keywords)
+			foreach (var keyword in Picture.Tags)
 			{
-				this.pictureKeywords.Items.Add(keyword);
+				this.pictureKeywords.Items.Add(keyword.Tag);
 			}
 		}
 
+		/// <summary>
+		/// Add unsaved tags to pictures when the tag is closed
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void PTTag_Closing(object sender, FormClosingEventArgs e)
 		{
 			foreach (var keyword in this.pictureKeywords.Items)
 			{
-				if (!Picture.Keywords.Contains(keyword.ToString()))
+				if (!Picture.Tags.Select(tag => tag.Tag).Contains(keyword.ToString()))
 				{
-					Picture.Keywords.Add(keyword.ToString());
+					Picture.Tags.Add(new PictureTagger_System.PTTag
+					{
+						Picture = Picture,
+						Tag = keyword.ToString()
+					});
 				}
 			}
-			this.Picture.Update();
 		}
 
 		private void Insert_Click(object sender, EventArgs e)

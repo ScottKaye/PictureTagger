@@ -9,7 +9,7 @@ using System.Data.Linq;
 namespace PictureTagger_System
 {
 	[Database]
-	internal class DB : DataContext
+	public class DB : DataContext
 	{
 		public DB() : base(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\PictureTagger_DB.mdf;Integrated Security=True") { }
 

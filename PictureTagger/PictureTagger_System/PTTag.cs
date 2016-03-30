@@ -19,8 +19,8 @@ namespace PictureTagger_System
 
 		// Relationships
 
-		private EntityRef<PTPicture> _Picture;
-		[Association(Storage = "_Picture", ThisKey = "PictureID")]
+		private EntityRef<PTPicture> _Picture = new EntityRef<PTPicture>();
+		[Association(Storage = "_Picture", ThisKey = "PictureID", IsForeignKey = true)]
 		public PTPicture Picture
 		{
 			get { return this._Picture.Entity; }
