@@ -68,8 +68,7 @@ namespace PictureTagger_System
 
 			results.ForEach(r =>
 			{
-				if (r != null)
-					r?.LoadKeywords();
+				r?.LoadKeywords();
 			});
 
 			return results;
@@ -105,8 +104,7 @@ namespace PictureTagger_System
 
 			results.ForEach(r =>
 			{
-				if (r != null)
-					r?.LoadKeywords();
+				r?.LoadKeywords();
 			});
 
 			return results;
