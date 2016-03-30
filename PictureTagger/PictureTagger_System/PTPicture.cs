@@ -50,7 +50,7 @@ namespace PictureTagger_System
 		{
 			int? id = null;
 
-			using (var cmd = new SqlCommand("INSERT INTO [Pictures] (Path, PrimaryColour) VALUES (@Path, @Colour); SELECT SCOPE_IDENTITY()", PTData.conn))
+			using (var cmd = new SqlCommand("INSERT INTO [Pictures] (Path, PrimaryColour) VALUES (@Path, @Colour); SELECT SCOPE_IDENTITY();", PTData.conn))
 			{
 				cmd.Parameters.Add(new SqlParameter("Path", this.Path));
 				cmd.Parameters.Add(new SqlParameter("Colour", ColorTranslator.ToHtml(this.PrimaryColour)));
@@ -76,7 +76,7 @@ namespace PictureTagger_System
 			}
 
 			// Update this object's fields
-			using (SqlCommand cmd = new SqlCommand("UPDATE [Pictures] SET Path = @Path, PrimaryColour = @Colour WHERE PictureID = @ID", PTData.conn))
+			using (SqlCommand cmd = new SqlCommand("UPDATE [Pictures] SET Path = @Path, PrimaryColour = @Colour WHERE PictureID = @ID;", PTData.conn))
 			{
 				// TODO validate params for length/other
 				cmd.Parameters.Add(new SqlParameter("ID", this.ID));
@@ -90,7 +90,7 @@ namespace PictureTagger_System
 			if (keywordsChanged)
 			{
 				// Delete all existing keywords for this picture
-				using (var cmd = new SqlCommand("DELETE FROM [Tags] WHERE PictureID = @ID", PTData.conn))
+				using (var cmd = new SqlCommand("DELETE FROM [Tags] WHERE PictureID = @ID;", PTData.conn))
 				{
 					cmd.Parameters.Add(new SqlParameter("ID", this.ID));
 					cmd.ExecuteNonQuery();
@@ -100,7 +100,7 @@ namespace PictureTagger_System
 				foreach (string keyword in Keywords)
 				{
 					// TODO may fail to primary keys
-					using (var cmd = new SqlCommand("INSERT INTO [Tags] (PictureID, Tag) VALUES (@ID, @Tag)", PTData.conn))
+					using (var cmd = new SqlCommand("INSERT INTO [Tags] (PictureID, Tag) VALUES (@ID, @Tag);", PTData.conn))
 					{
 						// TODO validate params for length/other
 						cmd.Parameters.Add(new SqlParameter("ID", this.ID));
@@ -118,14 +118,14 @@ namespace PictureTagger_System
 		public bool Delete()
 		{
 			// Delete picture
-			using (var cmd = new SqlCommand("DELETE FROM [Pictures] WHERE PictureID = @ID", PTData.conn))
+			using (var cmd = new SqlCommand("DELETE FROM [Pictures] WHERE PictureID = @ID;", PTData.conn))
 			{
 				cmd.Parameters.Add(new SqlParameter("ID", this.ID));
 				cmd.ExecuteNonQuery();
 			}
 
 			// Delete tags
-			using (var cmd = new SqlCommand("DELETE FROM [Tags] WHERE PictureID = @ID", PTData.conn))
+			using (var cmd = new SqlCommand("DELETE FROM [Tags] WHERE PictureID = @ID;", PTData.conn))
 			{
 				cmd.Parameters.Add(new SqlParameter("ID", this.ID));
 				cmd.ExecuteNonQuery();
