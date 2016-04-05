@@ -11,7 +11,7 @@ namespace PictureTagger_System
 	[Database]
 	public class DB : DataContext
 	{
-		public DB() : base(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\PictureTagger_DB.mdf;Integrated Security=True") { }
+		public DB() : base(@"Data Source=(LocalDB)\V11.0;AttachDbFilename=|DataDirectory|\PictureTagger_DB.mdf;Integrated Security=True") { }
 
 		public Table<PTPicture> Pictures;
 		public Table<PTTag> Tags;
