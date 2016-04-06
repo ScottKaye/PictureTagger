@@ -143,5 +143,10 @@ namespace PictureTagger_UI
 			PTTag tagForm = new PTTag(picturebox.Picture);
 			tagForm.ShowDialog(this);
 		}
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+
+        }
 	}
 }
