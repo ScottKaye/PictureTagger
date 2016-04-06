@@ -67,7 +67,7 @@ namespace PictureTagger_UI
 			// Get each normalized tag from the search string
 			var tags = value
 				.Split(new[] { ',', ' ' })
-				.Select(tag => tag.Trim().NormalizeKeyword())
+				.Select(tag => tag.NormalizeKeyword())
 				.Where(tag => tag.Length > 0);
 
 			// For every tag, find matching pictures and add their scores to the results list
@@ -108,7 +108,6 @@ namespace PictureTagger_UI
 		{
 			ptData = new PTData();
 
-			// Take first 20 pictures in database
 			// TODO pagination?
 			foreach (var picture in ptData.Pictures())
 			{
@@ -121,6 +120,10 @@ namespace PictureTagger_UI
 			ptData.Save();
 		}
 
+		/// <summary>
+		/// Adds a picture to the form to be displayed on the grid
+		/// </summary>
+		/// <param name="picture">Picture to add</param>
 		private void setupImage(PTPicture picture)
 		{
 			PTPictureBox picturebox = new PTPictureBox(picture); //Encapsulate PTPicture in PictureBox
