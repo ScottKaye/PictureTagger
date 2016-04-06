@@ -12,17 +12,6 @@ using PictureTagger_System;
 
 namespace PictureTagger_UI
 {
-	class SearchMatch
-	{
-		internal PTPicture Picture { get; set; }
-		internal uint Score = 0;
-
-		public SearchMatch(PTPicture pic)
-		{
-			Picture = pic;
-		}
-	}
-
 	public partial class PTMain : Form
 	{
 		//Data
@@ -228,4 +217,15 @@ namespace PictureTagger_UI
 			tagForm.ShowDialog(this);
 		}
 	}
+
+    class SearchMatch
+    {
+        internal PTPicture Picture { get; set; }
+        internal uint Score = 0;
+
+        public SearchMatch(PTPicture pic)
+        {
+            Picture = pic;
+        }
+    }
 }
