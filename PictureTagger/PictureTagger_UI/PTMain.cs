@@ -44,6 +44,10 @@ namespace PictureTagger_UI
 			};
 		}
 
+		/// <summary>
+		/// Repopulates the main view with pictures matching a comma|string-separated search value
+		/// </summary>
+		/// <param name="value">comma and space-separated string to search for tags</param>
 		private void Search(string value)
 		{
 			// Empty searches reset and display all pictures
@@ -61,7 +65,10 @@ namespace PictureTagger_UI
 			var matches = new List<SearchMatch>();
 
 			// Get each normalized tag from the search string
-			var tags = value.Split(',').Select(tag => tag.Trim().NormalizeKeyword());
+			var tags = value
+				.Split(new[] { ',', ' ' })
+				.Select(tag => tag.Trim().NormalizeKeyword())
+				.Where(tag => tag.Length > 0);
 
 			// For every tag, find matching pictures and add their scores to the results list
 			foreach (var tag in tags)
