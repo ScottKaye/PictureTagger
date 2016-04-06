@@ -70,21 +70,20 @@ namespace PictureTagger_UI
 
 				foreach (var match in tagMatches)
 				{
-					SearchMatch sm = new SearchMatch(match);
-					int index = matches.IndexOf(sm);
+					var existing = matches.FirstOrDefault(sm => sm.Picture.PictureID == match.PictureID);
 
-					if (index == -1)
+					if (existing == null)
 					{
-						matches.Add(sm);
+						matches.Add(new SearchMatch(match));
 					}
 					else
 					{
-						matches[index].Score++;
+						existing.Score++;
 					}
 				}
 			}
 
-			foreach (var match in matches.OrderBy(match => match.Score))
+			foreach (var match in matches.OrderByDescending(match => match.Score))
 			{
 				setupImage(match.Picture);
 			}
