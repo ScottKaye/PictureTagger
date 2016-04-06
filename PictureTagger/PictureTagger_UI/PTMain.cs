@@ -46,6 +46,7 @@ namespace PictureTagger_UI
 
 		private void Search(string value)
 		{
+			// Empty searches reset and display all pictures
 			if (value.Length == 0)
 			{
 				pictureLayout.Controls.Clear();
@@ -56,11 +57,13 @@ namespace PictureTagger_UI
 				return;
 			}
 
+			// List to keep track of search result matches
+			var matches = new List<SearchMatch>();
+
+			// Get each normalized tag from the search string
 			var tags = value.Split(',').Select(tag => tag.Trim().NormalizeKeyword());
-			pictureLayout.Controls.Clear();
 
-			List<SearchMatch> matches = new List<SearchMatch>();
-
+			// For every tag, find matching pictures and add their scores to the results list
 			foreach (var tag in tags)
 			{
 				// Match this tag
@@ -68,6 +71,8 @@ namespace PictureTagger_UI
 								 where pic.Tags.Select(t => t.Tag).Contains(tag)
 								 select pic;
 
+				// For every picture that matches this tag, check if it already exists in the results list
+				// If it does exist, increment it's "score" so more relevant pictures appear first
 				foreach (var match in tagMatches)
 				{
 					var existing = matches.FirstOrDefault(sm => sm.Picture.PictureID == match.PictureID);
@@ -83,6 +88,9 @@ namespace PictureTagger_UI
 				}
 			}
 
+			pictureLayout.Controls.Clear();
+
+			// Display each picture in the results, ordered by how well they matched the search query
 			foreach (var match in matches.OrderByDescending(match => match.Score))
 			{
 				setupImage(match.Picture);
@@ -95,7 +103,7 @@ namespace PictureTagger_UI
 
 			// Take first 20 pictures in database
 			// TODO pagination?
-			foreach (var picture in ptData.Pictures().Take(20))
+			foreach (var picture in ptData.Pictures())
 			{
 				setupImage(picture);
 			}
@@ -185,6 +193,7 @@ namespace PictureTagger_UI
 				setupImage(picture);
 			}
 
+			// Make sure to save the database file, otherwise additions only exist in memory
 			ptData.Save();
 		}
 
