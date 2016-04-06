@@ -12,6 +12,17 @@ using PictureTagger_System;
 
 namespace PictureTagger_UI
 {
+	class SearchMatch
+	{
+		internal PTPicture Picture { get; set; }
+		internal uint Score = 0;
+
+		public SearchMatch(PTPicture pic)
+		{
+			Picture = pic;
+		}
+	}
+
 	public partial class PTMain : Form
 	{
 		//Data
@@ -24,6 +35,59 @@ namespace PictureTagger_UI
 		{
 			InitializeComponent();
 			optionsForm = new PTOptions();
+			txtSearch.KeyUp += (s, e) =>
+			{
+				if (e.KeyCode == Keys.Enter)
+				{
+					Search(txtSearch.Text);
+				}
+			};
+		}
+
+		private void Search(string value)
+		{
+			if (value.Length == 0)
+			{
+				pictureLayout.Controls.Clear();
+				foreach (var pic in ptData.Pictures())
+				{
+					setupImage(pic);
+				}
+				return;
+			}
+
+			var tags = value.Split(',').Select(tag => tag.Trim().NormalizeKeyword());
+			pictureLayout.Controls.Clear();
+
+			List<SearchMatch> matches = new List<SearchMatch>();
+
+			foreach (var tag in tags)
+			{
+				// Match this tag
+				var tagMatches = from pic in ptData.Pictures()
+								 where pic.Tags.Select(t => t.Tag).Contains(tag)
+								 select pic;
+
+				foreach (var match in tagMatches)
+				{
+					SearchMatch sm = new SearchMatch(match);
+					int index = matches.IndexOf(sm);
+
+					if (index == -1)
+					{
+						matches.Add(sm);
+					}
+					else
+					{
+						matches[index].Score++;
+					}
+				}
+			}
+
+			foreach (var match in matches.OrderBy(match => match.Score))
+			{
+				setupImage(match.Picture);
+			}
 		}
 
 		private void PTMain_Load(object sender, EventArgs e)
@@ -121,6 +185,8 @@ namespace PictureTagger_UI
 				ptData.Insert(picture);
 				setupImage(picture);
 			}
+
+			ptData.Save();
 		}
 
 		private void DeletePictureBoxMenuItem_Click(object sender, EventArgs e)
@@ -140,13 +206,8 @@ namespace PictureTagger_UI
 			ToolStripMenuItem deletePictureBox = (ToolStripMenuItem)sender;
 			PTPictureBox picturebox = (PTPictureBox)deletePictureBox.Tag;
 
-			PTTag tagForm = new PTTag(picturebox.Picture);
+			PTTag tagForm = new PTTag(picturebox.Picture, ptData);
 			tagForm.ShowDialog(this);
 		}
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 	}
 }
