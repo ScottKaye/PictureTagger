@@ -14,11 +14,13 @@ namespace PictureTagger_UI
 	public partial class PTTag : Form
 	{
 		public PTPicture Picture { get; private set; }
+		public PTData ptData;
 
-		public PTTag(PTPicture picture)
+		public PTTag(PTPicture picture, PTData data)
 		{
 			InitializeComponent();
 			this.Picture = picture;
+			ptData = data;
 		}
 
 		private void PTTag_Load(object sender, EventArgs e)
@@ -47,6 +49,7 @@ namespace PictureTagger_UI
 					});
 				}
 			}
+			ptData.Save();
 		}
 
 		private void Insert_Click(object sender, EventArgs e)

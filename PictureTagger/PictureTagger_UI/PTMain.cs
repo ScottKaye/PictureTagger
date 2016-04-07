@@ -24,15 +24,81 @@ namespace PictureTagger_UI
 		{
 			InitializeComponent();
 			optionsForm = new PTOptions();
+			txtSearch.KeyUp += (s, e) =>
+			{
+				if (e.KeyCode == Keys.Enter)
+				{
+					Search(txtSearch.Text);
+				}
+			};
+		}
+
+		/// <summary>
+		/// Repopulates the main view with pictures matching a comma|string-separated search value
+		/// </summary>
+		/// <param name="value">comma and space-separated string to search for tags</param>
+		private void Search(string value)
+		{
+			// Empty searches reset and display all pictures
+			if (value.Length == 0)
+			{
+				pictureLayout.Controls.Clear();
+				foreach (var pic in ptData.Pictures())
+				{
+					setupImage(pic);
+				}
+				return;
+			}
+
+			// List to keep track of search result matches
+			var matches = new List<SearchMatch>();
+
+			// Get each normalized tag from the search string
+			var tags = value
+				.Split(new[] { ',', ' ' })
+				.Select(tag => tag.NormalizeKeyword())
+				.Where(tag => tag.Length > 0);
+
+			// For every tag, find matching pictures and add their scores to the results list
+			foreach (var tag in tags)
+			{
+				// Match this tag
+				var tagMatches = from pic in ptData.Pictures()
+								 where pic.Tags.Select(t => t.Tag).Contains(tag)
+								 select pic;
+
+				// For every picture that matches this tag, check if it already exists in the results list
+				// If it does exist, increment it's "score" so more relevant pictures appear first
+				foreach (var match in tagMatches)
+				{
+					var existing = matches.FirstOrDefault(sm => sm.Picture.PictureID == match.PictureID);
+
+					if (existing == null)
+					{
+						matches.Add(new SearchMatch(match));
+					}
+					else
+					{
+						existing.Score++;
+					}
+				}
+			}
+
+			pictureLayout.Controls.Clear();
+
+			// Display each picture in the results, ordered by how well they matched the search query
+			foreach (var match in matches.OrderByDescending(match => match.Score))
+			{
+				setupImage(match.Picture);
+			}
 		}
 
 		private void PTMain_Load(object sender, EventArgs e)
 		{
 			ptData = new PTData();
 
-			// Take first 20 pictures in database
 			// TODO pagination?
-			foreach (var picture in ptData.Pictures().Take(20))
+			foreach (var picture in ptData.Pictures())
 			{
 				setupImage(picture);
 			}
@@ -43,6 +109,10 @@ namespace PictureTagger_UI
 			ptData.Save();
 		}
 
+		/// <summary>
+		/// Adds a picture to the form to be displayed on the grid
+		/// </summary>
+		/// <param name="picture">Picture to add</param>
 		private void setupImage(PTPicture picture)
 		{
 			PTPictureBox picturebox = new PTPictureBox(picture); //Encapsulate PTPicture in PictureBox
@@ -121,6 +191,9 @@ namespace PictureTagger_UI
 				ptData.Insert(picture);
 				setupImage(picture);
 			}
+
+			// Make sure to save the database file, otherwise additions only exist in memory
+			ptData.Save();
 		}
 
 		private void DeletePictureBoxMenuItem_Click(object sender, EventArgs e)
@@ -140,8 +213,19 @@ namespace PictureTagger_UI
 			ToolStripMenuItem deletePictureBox = (ToolStripMenuItem)sender;
 			PTPictureBox picturebox = (PTPictureBox)deletePictureBox.Tag;
 
-			PTTag tagForm = new PTTag(picturebox.Picture);
+			PTTag tagForm = new PTTag(picturebox.Picture, ptData);
 			tagForm.ShowDialog(this);
 		}
 	}
+
+    class SearchMatch
+    {
+        internal PTPicture Picture { get; set; }
+        internal uint Score = 0;
+
+        public SearchMatch(PTPicture pic)
+        {
+            Picture = pic;
+        }
+    }
 }

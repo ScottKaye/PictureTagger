@@ -40,6 +40,8 @@
 			this.mainPTStatusStrip = new System.Windows.Forms.StatusStrip();
 			this.pictureLayout = new System.Windows.Forms.FlowLayoutPanel();
 			this.openFileDialogImageImport = new System.Windows.Forms.OpenFileDialog();
+			this.txtSearch = new System.Windows.Forms.TextBox();
+			this.lblSearch = new System.Windows.Forms.Label();
 			this.mainPTMenuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -50,11 +52,11 @@
             this.filePTMainStrip,
             this.toolsPTMainStrip,
             this.helpPTMainStrip});
-			this.mainPTMenuStrip.Location = new System.Drawing.Point(9, 9);
+			this.mainPTMenuStrip.Location = new System.Drawing.Point(10, 9);
 			this.mainPTMenuStrip.Name = "mainPTMenuStrip";
 			this.mainPTMenuStrip.Padding = new System.Windows.Forms.Padding(11, 4, 0, 4);
 			this.mainPTMenuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.mainPTMenuStrip.Size = new System.Drawing.Size(869, 42);
+			this.mainPTMenuStrip.Size = new System.Drawing.Size(867, 42);
 			this.mainPTMenuStrip.TabIndex = 0;
 			this.mainPTMenuStrip.Text = "Menu";
 			// 
@@ -119,10 +121,10 @@
 			// mainPTStatusStrip
 			// 
 			this.mainPTStatusStrip.ImageScalingSize = new System.Drawing.Size(28, 28);
-			this.mainPTStatusStrip.Location = new System.Drawing.Point(9, 820);
+			this.mainPTStatusStrip.Location = new System.Drawing.Point(10, 819);
 			this.mainPTStatusStrip.Name = "mainPTStatusStrip";
-			this.mainPTStatusStrip.Padding = new System.Windows.Forms.Padding(2, 0, 26, 0);
-			this.mainPTStatusStrip.Size = new System.Drawing.Size(869, 22);
+			this.mainPTStatusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 26, 0);
+			this.mainPTStatusStrip.Size = new System.Drawing.Size(867, 22);
 			this.mainPTStatusStrip.TabIndex = 1;
 			this.mainPTStatusStrip.Text = "mainPTStatusStrip";
 			// 
@@ -131,10 +133,10 @@
 			this.pictureLayout.AutoScroll = true;
 			this.pictureLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.pictureLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.pictureLayout.Location = new System.Drawing.Point(9, 51);
+			this.pictureLayout.Location = new System.Drawing.Point(10, 51);
 			this.pictureLayout.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.pictureLayout.Name = "pictureLayout";
-			this.pictureLayout.Size = new System.Drawing.Size(869, 769);
+			this.pictureLayout.Size = new System.Drawing.Size(867, 768);
 			this.pictureLayout.TabIndex = 2;
 			// 
 			// openFileDialogImageImport
@@ -142,17 +144,38 @@
 			this.openFileDialogImageImport.Filter = "Image files (*.jpg, *.jpeg, *.gif, *.png) | *.jpg; *.jpeg; *.gif; *.png";
 			this.openFileDialogImageImport.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogImageImport_FileOk);
 			// 
+			// txtSearch
+			// 
+			this.txtSearch.Location = new System.Drawing.Point(566, 15);
+			this.txtSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.txtSearch.Name = "txtSearch";
+			this.txtSearch.Size = new System.Drawing.Size(309, 29);
+			this.txtSearch.TabIndex = 3;
+			// 
+			// lblSearch
+			// 
+			this.lblSearch.AutoSize = true;
+			this.lblSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblSearch.Location = new System.Drawing.Point(485, 17);
+			this.lblSearch.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.lblSearch.Name = "lblSearch";
+			this.lblSearch.Size = new System.Drawing.Size(75, 24);
+			this.lblSearch.TabIndex = 4;
+			this.lblSearch.Text = "Search:";
+			// 
 			// PTMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(887, 851);
+			this.ClientSize = new System.Drawing.Size(887, 850);
+			this.Controls.Add(this.lblSearch);
+			this.Controls.Add(this.txtSearch);
 			this.Controls.Add(this.pictureLayout);
 			this.Controls.Add(this.mainPTStatusStrip);
 			this.Controls.Add(this.mainPTMenuStrip);
 			this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.Name = "PTMain";
-			this.Padding = new System.Windows.Forms.Padding(9, 9, 9, 9);
+			this.Padding = new System.Windows.Forms.Padding(10, 9, 10, 9);
 			this.Text = "Picture Tagger";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PTMain_Closing);
 			this.Load += new System.EventHandler(this.PTMain_Load);
@@ -177,6 +200,8 @@
         private System.Windows.Forms.StatusStrip mainPTStatusStrip;
         private System.Windows.Forms.FlowLayoutPanel pictureLayout;
 		private System.Windows.Forms.OpenFileDialog openFileDialogImageImport;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Label lblSearch;
 	}
 }
 
