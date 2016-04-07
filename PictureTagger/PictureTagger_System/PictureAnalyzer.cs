@@ -19,7 +19,7 @@ namespace PictureTagger_System
 		public static Color GetDominantColour(Bitmap bitmap)
 		{
 			int cost = 50;
-			Color dominant = Color.Black;
+			Color? dominant = Color.Black;
 
 			using (Bitmap small = new Bitmap(bitmap, new Size(cost, bitmap.Height / (bitmap.Width / cost))))
 			{
@@ -42,12 +42,12 @@ namespace PictureTagger_System
 							  orderby col.GetBrightness() descending, col.GetSaturation() descending
 							  select col;
 
-				//dominant = ordered.FirstOrDefault();
+				dominant = ordered.FirstOrDefault();
 			}
 
 			bitmap.Dispose();
 
-			return dominant;
+			return dominant ?? Color.Black;
 		}
 	}
 }
