@@ -15,6 +15,7 @@ namespace PictureTagger_UI
 	{
 		public PTPicture Picture { get; private set; }
 		public PTData ptData;
+		public List<string> deletes = new List<string>() { };  // Batch deletes into a single transaction
 
 		public PTTag(PTPicture picture, PTData data)
 		{
@@ -38,17 +39,29 @@ namespace PictureTagger_UI
 		/// <param name="e"></param>
 		private void PTTag_Closing(object sender, FormClosingEventArgs e)
 		{
-			foreach (var keyword in this.pictureKeywords.Items)
+			// Handle deletes
+			foreach (var tag in Picture.Tags.ToList())
 			{
-				if (!Picture.Tags.Select(tag => tag.Tag).Contains(keyword.ToString()))
+				if (deletes.Contains(tag.Tag))
+				{
+					ptData.Delete(tag);
+				}
+			}
+
+			// Add tags that aren't already associated with this picture
+			foreach (var tag in this.pictureKeywords.Items)
+			{
+				if (!Picture.Tags.Select(t => t.Tag).Contains(tag.ToString()))
 				{
 					Picture.Tags.Add(new PictureTagger_System.PTTag
 					{
 						Picture = Picture,
-						Tag = keyword.ToString()
+						Tag = tag.ToString()
 					});
 				}
 			}
+
+			// Save changes
 			ptData.Save();
 		}
 
@@ -74,6 +87,7 @@ namespace PictureTagger_UI
 			{
 				var x = pictureKeywords.SelectedIndex;
 				pictureKeywords.ClearSelected();
+				deletes.Add(this.pictureKeywords.Items[x].ToString());
 				this.pictureKeywords.Items.RemoveAt(x);
 				this.pictureKeywords.Update();
 			}

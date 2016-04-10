@@ -43,6 +43,12 @@ namespace PictureTagger_System
 
 		public void Delete(PTPicture pic)
 		{
+			// Delete associated tags
+			foreach(var tag in pic.Tags)
+			{
+				Delete(tag);
+			}
+
 			db.Pictures.DeleteOnSubmit(pic);
 		}
 

@@ -80,10 +80,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PictureTagger_DB.mdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PictureTagger_DB_log.ldf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>PictureTagger_DB.mdf</DependentUpon>
     </Content>
     <Content Include="schema.sql" />

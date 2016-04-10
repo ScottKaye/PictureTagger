@@ -33,6 +33,15 @@ namespace PictureTagger_UI
 			};
 		}
 
+		private void refreshPictures()
+		{
+			pictureLayout.Controls.Clear();
+			foreach (var picture in ptData.Pictures())
+			{
+				setupImage(picture);
+			}
+		}
+
 		/// <summary>
 		/// Repopulates the main view with pictures matching a comma|string-separated search value
 		/// </summary>
@@ -97,11 +106,7 @@ namespace PictureTagger_UI
 		{
 			ptData = new PTData();
 
-			// TODO pagination?
-			foreach (var picture in ptData.Pictures())
-			{
-				setupImage(picture);
-			}
+			refreshPictures();
 		}
 
 		private void PTMain_Closing(object sender, FormClosingEventArgs e)
@@ -189,11 +194,12 @@ namespace PictureTagger_UI
 				};
 
 				ptData.Insert(picture);
-				setupImage(picture);
 			}
 
 			// Make sure to save the database file, otherwise additions only exist in memory
 			ptData.Save();
+
+			refreshPictures();
 		}
 
 		private void DeletePictureBoxMenuItem_Click(object sender, EventArgs e)
@@ -201,11 +207,16 @@ namespace PictureTagger_UI
 			ToolStripMenuItem deletePictureBox = (ToolStripMenuItem)sender;
 			PTPictureBox picturebox = (PTPictureBox)deletePictureBox.Tag;
 			pictureLayout.Controls.Remove(picturebox); //Remove from UI
-			ptData.Delete(picturebox.Picture); //Remove from DB
+
 			if (File.Exists(picturebox.Picture.Path))
 			{
 				File.Delete(picturebox.Picture.Path); //Remove from File System
 			}
+
+			ptData.Delete(picturebox.Picture); //Remove from DB
+			ptData.Save();
+
+			refreshPictures();
 		}
 
 		public void TagPictureBoxMenuItem_Click(object sender, EventArgs e)
@@ -218,14 +229,14 @@ namespace PictureTagger_UI
 		}
 	}
 
-    class SearchMatch
-    {
-        internal PTPicture Picture { get; set; }
-        internal uint Score = 0;
+	class SearchMatch
+	{
+		internal PTPicture Picture { get; set; }
+		internal uint Score = 0;
 
-        public SearchMatch(PTPicture pic)
-        {
-            Picture = pic;
-        }
-    }
+		public SearchMatch(PTPicture pic)
+		{
+			Picture = pic;
+		}
+	}
 }
